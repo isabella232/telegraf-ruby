@@ -16,12 +16,12 @@ RSpec.describe Telegraf do
 
       agent.write([
                     {series: 'demo', tags: {a: 1, b: 2}, values: {a: 1, b: 2.1}},
-                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}}
+                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}, timestamp: 1234567890}
                   ])
 
       recv = server.accept.read_nonblock(4096)
 
-      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5"
+      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5 1234567890"
 
       server.close
     end
@@ -52,12 +52,12 @@ RSpec.describe Telegraf do
 
       agent.write([
                     {series: 'demo', tags: {a: 1, b: 2}, values: {a: 1, b: 2.1}},
-                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}}
+                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}, timestamp: 1234567890}
                   ])
 
       recv = server.read_nonblock(4096)
 
-      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5"
+      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5 1234567890"
 
       server.close
     end
@@ -70,12 +70,12 @@ RSpec.describe Telegraf do
 
       agent.write([
                     {series: 'demo', tags: {a: 1, b: 2}, values: {a: 1, b: 2.1}},
-                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}}
+                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}, timestamp: 1234567890}
                   ])
 
       recv = server.accept.read_nonblock(4096)
 
-      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5"
+      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5 1234567890"
 
       server.close
     end
@@ -90,12 +90,12 @@ RSpec.describe Telegraf do
 
       agent.write([
                     {series: 'demo', tags: {a: 1, b: 2}, values: {a: 1, b: 2.1}},
-                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}}
+                    {series: 'demo', tags: {a: '1', b: 2}, values: {a: 6, b: 2.5}, timestamp: 1234567890}
                   ])
 
       recv = server.read_nonblock(4096)
 
-      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5"
+      expect(recv).to eq "demo,a=1,b=2 a=1i,b=2.1\ndemo,a=1,b=2 a=6i,b=2.5 1234567890"
 
       server.close
     end

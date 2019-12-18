@@ -20,9 +20,9 @@ module Telegraf
       end
     end
 
-    def write!(data, series: nil, tags: nil, values: nil)
+    def write!(data, series: nil, tags: nil, values: nil, timestamp: nil)
       if values
-        data = [{series: series || data.to_s, tags: tags, values: values}]
+        data = [{series: series || data.to_s, tags: tags, values: values, timestamp: timestamp}]
       end
 
       socket = connect @uri
